@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
     <title>CSW PosTÚlate · Portal de Vacantes</title>
-    <!-- Google Fonts + Font Awesome -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -22,15 +21,13 @@
             padding: 1rem;
         }
 
-        /* Contenedor principal fluido */
         .csw-app {
             max-width: 1400px;
             width: 100%;
             margin: 0 auto;
-            transition: all 0.2s;
         }
 
-        /* ========= TARJETA DE ACCESO ========= */
+        /* Tarjeta de acceso - dos columnas */
         .access-card {
             background: white;
             border-radius: 2rem;
@@ -40,69 +37,64 @@
         }
         .access-header {
             background: linear-gradient(135deg, #134b6b, #1f6392);
-            padding: 1.5rem 1rem;
+            padding: 1.8rem 1rem;
             text-align: center;
         }
         .access-header h2 {
             color: white;
             font-weight: 800;
             font-size: clamp(1.4rem, 5vw, 1.8rem);
-            letter-spacing: -0.3px;
         }
         .access-body {
-            padding: 1.5rem;
+            padding: 2rem 1.8rem;
             display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
         }
         .access-option {
+            flex: 1;
+            min-width: 260px;
             background: #f9fdfe;
-            border-radius: 1.75rem;
-            padding: 1.5rem 1rem;
+            border-radius: 2rem;
+            padding: 2rem 1.5rem;
             text-align: center;
-            transition: all 0.2s;
-            border: 2px solid transparent;
             cursor: pointer;
+            transition: all 0.25s ease;
+            border: 2px solid transparent;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
         }
         .access-option:hover {
-            transform: translateY(-3px);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 30px -12px rgba(0,0,0,0.15);
+            border-color: #cde1ec;
             background: white;
-            box-shadow: 0 12px 20px rgba(0,0,0,0.08);
         }
         .option-icon {
-            font-size: 2.5rem;
+            font-size: 3rem;
             color: #2c7da0;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
         }
         .option-title {
             font-weight: 800;
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             margin-bottom: 0.5rem;
+            color: #164863;
         }
         .option-desc {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: #5f8dae;
-        }
-        .btn-access {
-            background: #2c7da0;
-            border: none;
-            color: white;
-            padding: 0.7rem 1rem;
-            border-radius: 3rem;
-            font-weight: 700;
-            margin-top: 1rem;
-            width: 100%;
-            cursor: pointer;
-            font-size: 0.9rem;
+            line-height: 1.4;
         }
         .admin-gear {
             text-align: right;
-            padding: 0.8rem 1.5rem 1.2rem;
+            padding: 0.8rem 1.8rem 1.2rem;
             border-top: 1px solid #e2edf4;
             display: flex;
             justify-content: flex-end;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
         .gear-icon {
             font-size: 1.6rem;
@@ -110,8 +102,12 @@
             cursor: pointer;
             transition: 0.2s;
         }
+        .gear-icon:hover {
+            color: #1f6392;
+            transform: rotate(20deg);
+        }
 
-        /* Header de la app (post-login) */
+        /* Header post-login */
         .app-header {
             display: flex;
             flex-wrap: wrap;
@@ -123,7 +119,6 @@
             padding: 0.8rem 1.2rem;
             margin-bottom: 1.5rem;
             gap: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
         }
         .logo-area h1 {
             font-weight: 800;
@@ -152,16 +147,14 @@
             cursor: pointer;
         }
 
-        /* Tabs scroll horizontal en móvil */
+        /* Tabs */
         .tabs-container {
             display: flex;
-            flex-wrap: nowrap;
-            overflow-x: auto;
+            flex-wrap: wrap;
             gap: 0.6rem;
             margin-bottom: 1.8rem;
             padding-bottom: 0.5rem;
-            scrollbar-width: thin;
-            -webkit-overflow-scrolling: touch;
+            border-bottom: 2px solid rgba(44,125,160,0.25);
         }
         .tab-btn {
             background: transparent;
@@ -181,34 +174,25 @@
             color: white;
             box-shadow: 0 6px 12px -6px rgba(31,99,146,0.4);
         }
-        .tab-btn.disabled-tab {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
 
-        /* Grid de vacantes: responsive 1 columna en móvil, 2 en tablets, 3 en desktop */
+        /* Grid vacantes */
         .vacancies-grid {
             display: grid;
             grid-template-columns: 1fr;
             gap: 1.5rem;
         }
         @media (min-width: 560px) {
-            .vacancies-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            .vacancies-grid { grid-template-columns: repeat(2, 1fr); }
         }
         @media (min-width: 1024px) {
-            .vacancies-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
+            .vacancies-grid { grid-template-columns: repeat(3, 1fr); }
         }
 
-        /* Tarjeta de vacante */
         .vacancy-card {
             background: white;
             border-radius: 1.75rem;
             overflow: hidden;
-            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            transition: all 0.3s ease;
             box-shadow: 0 10px 18px -8px rgba(0, 0, 0, 0.08);
             border: 1px solid #e2f0f7;
             cursor: pointer;
@@ -247,7 +231,6 @@
             opacity: 0;
             overflow: hidden;
             transition: max-height 0.4s ease, opacity 0.3s ease;
-            margin-top: 0;
         }
         .vacancy-card:hover .extra-details {
             max-height: 400px;
@@ -301,55 +284,94 @@
             padding: 1rem;
         }
 
-        /* Panel Admin (responsive) */
+        /* Panel Admin mejorado */
         .admin-panel-responsive {
             background: white;
             border-radius: 1.75rem;
-            padding: 1.2rem;
+            padding: 1.5rem;
             margin-bottom: 1.5rem;
             box-shadow: 0 8px 18px rgba(0,0,0,0.05);
         }
-        .form-row {
+        .form-section {
+            margin-bottom: 2rem;
+        }
+        .form-title {
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: #164863;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-left: 4px solid #2c7da0;
+            padding-left: 12px;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        @media (min-width: 768px) {
+            .form-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .form-grid-full {
+                grid-column: span 2;
+            }
+        }
+        .form-group {
             display: flex;
             flex-direction: column;
-            gap: 0.8rem;
-            margin-bottom: 1rem;
-        }
-        @media (min-width: 640px) {
-            .form-row {
-                flex-direction: row;
-                flex-wrap: wrap;
-            }
-            .form-row .form-group {
-                flex: 1;
-                min-width: 140px;
-            }
+            gap: 4px;
         }
         .form-group label {
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             font-weight: 700;
-            text-transform: uppercase;
             color: #4f7a9e;
-            display: block;
-            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
         }
         .form-group input, .form-group select, .form-group textarea {
-            width: 100%;
-            padding: 0.6rem 0.8rem;
-            border-radius: 2rem;
-            border: 1.5px solid #d9e4ec;
+            padding: 0.7rem 1rem;
+            border-radius: 1rem;
+            border: 1.5px solid #e2edf4;
             font-family: 'Inter', sans-serif;
             font-size: 0.85rem;
+            transition: 0.2s;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #2c7da0;
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        .preview-card {
+            background: #f8fafc;
+            border-radius: 1.5rem;
+            padding: 1.2rem;
+            margin-top: 1rem;
+            border: 2px dashed #cde1ec;
+        }
+        .preview-title {
+            font-weight: 800;
+            color: #164863;
+            margin-bottom: 4px;
         }
         .btn-primary {
             background: #2c7da0;
             border: none;
-            padding: 0.7rem 1.2rem;
+            padding: 0.7rem 1.5rem;
             border-radius: 3rem;
             color: white;
             font-weight: 700;
             cursor: pointer;
-            width: 100%;
+            transition: 0.2s;
+        }
+        .btn-primary:hover {
+            background: #1f6392;
+            transform: scale(1.02);
         }
         .admin-vacancy-item {
             background: #f9fdfe;
@@ -361,11 +383,7 @@
             gap: 10px;
         }
         @media (min-width: 500px) {
-            .admin-vacancy-item {
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: center;
-            }
+            .admin-vacancy-item { flex-direction: row; justify-content: space-between; align-items: center; }
         }
         .admin-actions-buttons button {
             background: #eef3fc;
@@ -374,9 +392,10 @@
             border-radius: 2rem;
             margin-left: 6px;
             font-size: 0.7rem;
+            cursor: pointer;
         }
 
-        /* Modal responsive */
+        /* Modal */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0;
@@ -392,10 +411,28 @@
         .modal-card {
             background: white;
             border-radius: 2rem;
-            padding: 1.5rem;
+            padding: 1.8rem;
             width: 90%;
-            max-width: 340px;
+            max-width: 360px;
             text-align: center;
+        }
+        .modal-card input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 2rem;
+            border: 1.5px solid #e2edf4;
+            margin: 1rem 0;
+            font-family: 'Inter', sans-serif;
+        }
+        .modal-card button {
+            background: #2c7da0;
+            border: none;
+            padding: 10px;
+            border-radius: 2rem;
+            color: white;
+            font-weight: 700;
+            width: 100%;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -403,18 +440,18 @@
 <div class="csw-app" id="cswApp"></div>
 
 <script>
-    // ---------- BASE DE DATOS DE VACANTES ----------
+    // Base de datos de vacantes
     let vacancies = [
-        { id: "v1", title: "Senior Frontend Developer", department: "Ingeniería", location: "Remoto (Latam)", contract: "Full-time", description: "Desarrollo con React, Next.js, Tailwind. Liderazgo técnico en componentes.", requirements: "5+ años en React, TypeScript, sistemas de diseño.", confidential: false },
-        { id: "v2", title: "Product Manager", department: "Producto", location: "Híbrido CDMX", contract: "Tiempo completo", description: "Estrategia de producto, OKRs, discovery con stakeholders.", requirements: "Experiencia en SaaS, metodologías ágiles.", confidential: false },
-        { id: "v3", title: "Arquitecto de Datos", department: "Data & AI", location: "Remoto", contract: "Estratégico", description: "Arquitectura Data Lakehouse, gobernanza, modelos avanzados.", requirements: "AWS, Snowflake, +8 años experiencia cloud.", confidential: true },
+        { id: "v1", title: "Senior Frontend Developer", department: "Ingeniería", location: "Remoto (Latam)", contract: "Full-time", description: "Desarrollo con React, Next.js, Tailwind. Liderazgo técnico.", requirements: "5+ años en React, TypeScript, sistemas de diseño.", confidential: false },
+        { id: "v2", title: "Product Manager", department: "Producto", location: "Híbrido CDMX", contract: "Tiempo completo", description: "Estrategia de producto, OKRs, discovery.", requirements: "Experiencia en SaaS, metodologías ágiles.", confidential: false },
+        { id: "v3", title: "Arquitecto de Datos", department: "Data & AI", location: "Remoto", contract: "Estratégico", description: "Arquitectura Data Lakehouse, gobernanza.", requirements: "AWS, Snowflake, +8 años experiencia.", confidential: true },
         { id: "v4", title: "Head of Talent Acquisition", department: "People", location: "Bogotá / Remoto", contract: "Dirección", description: "Liderar reclutamiento masivo y employer branding.", requirements: "5+ años liderando equipos de selección.", confidential: true },
-        { id: "v5", title: "DevOps Engineer", department: "Infraestructura", location: "Santiago", contract: "Full-time", description: "CI/CD, Kubernetes, monitoreo y optimización.", requirements: "Docker, Jenkins, Terraform.", confidential: false },
-        { id: "v6", title: "Especialista en CRM (Confidencial)", department: "Comercial", location: "Remoto", contract: "Alta gerencia", description: "Optimización de CRM Salesforce, reportes ejecutivos.", requirements: "Salesforce admin, 4 años de experiencia.", confidential: true }
+        { id: "v5", title: "DevOps Engineer", department: "Infraestructura", location: "Santiago", contract: "Full-time", description: "CI/CD, Kubernetes, monitoreo.", requirements: "Docker, Jenkins, Terraform.", confidential: false },
+        { id: "v6", title: "Especialista en CRM (Confidencial)", department: "Comercial", location: "Remoto", contract: "Alta gerencia", description: "Optimización de CRM Salesforce, reportes ejecutivos.", requirements: "Salesforce admin, 4 años exp.", confidential: true }
     ];
 
     let appState = {
-        accessLevel: null,   // 'guest', 'confidential', 'admin'
+        accessLevel: null,
         activeTab: "open"
     };
 
@@ -428,35 +465,33 @@
 
     function renderApp() {
         const container = document.getElementById('cswApp');
-        if(!container) return;
-        if(appState.accessLevel === null) {
+        if (!container) return;
+        if (appState.accessLevel === null) {
             renderAccessCard(container);
-            return;
+        } else {
+            renderPortal(container);
+            attachPostulationEvents();
         }
-        renderPortal(container);
-        attachPostulationEvents();
     }
 
+    // Nueva tarjeta de acceso: clic en los contenedores
     function renderAccessCard(container) {
         container.innerHTML = `
             <div class="access-card">
                 <div class="access-header">
                     <h2><i class="fas fa-chalkboard-user"></i> CSW PosTÚlate</h2>
-                    <p style="color: #cbe4f0; font-size:0.75rem;">Portal de oportunidades internas</p>
+                    <p style="color: #cbe4f0; font-size:0.8rem; margin-top:6px;">Portal de oportunidades internas</p>
                 </div>
                 <div class="access-body">
-                    <div class="access-option" data-mode="guest">
+                    <div class="access-option" id="guestModeCard">
                         <div class="option-icon"><i class="fas fa-globe-americas"></i></div>
                         <div class="option-title">Modo Invitado</div>
-                        <div class="option-desc">Sin contraseña · Solo vacantes abiertas</div>
-                        <button class="btn-access guest-btn">Ingresar como Invitado</button>
+                        <div class="option-desc">Acceso inmediato · Visualiza solo vacantes abiertas<br>Sin necesidad de contraseña</div>
                     </div>
-                    <div class="access-option" data-mode="confidential">
+                    <div class="access-option" id="confidentialModeCard">
                         <div class="option-icon"><i class="fas fa-user-secret"></i></div>
                         <div class="option-title">Acceso Confidencial</div>
-                        <div class="option-desc">Vacantes abiertas + confidenciales</div>
-                        <input type="password" id="confidentialPass" placeholder="Contraseña" style="width:100%; margin-top:8px; padding:8px; border-radius:2rem; border:1px solid #cde1ec;">
-                        <button class="btn-access confidential-login-btn" style="margin-top:8px;">Validar acceso</button>
+                        <div class="option-desc">Requiere verificación · Vacantes abiertas + confidenciales</div>
                     </div>
                 </div>
                 <div class="admin-gear">
@@ -465,98 +500,123 @@
                 </div>
             </div>
         `;
-        const guestBtn = container.querySelector('.guest-btn');
-        if(guestBtn) guestBtn.addEventListener('click', () => {
+
+        // Modo Invitado: acceso sin contraseña
+        document.getElementById('guestModeCard').addEventListener('click', () => {
             appState.accessLevel = 'guest';
             appState.activeTab = 'open';
             renderApp();
         });
-        const confidentialBtn = container.querySelector('.confidential-login-btn');
-        const passInput = container.getElementById('confidentialPass');
-        const validateConf = () => {
-            if(passInput.value === 'Confidencial2026') {
-                appState.accessLevel = 'confidential';
-                appState.activeTab = 'open';
-                renderApp();
-            } else { alert('Contraseña inválida'); passInput.value = ''; }
-        };
-        if(confidentialBtn) confidentialBtn.addEventListener('click', validateConf);
-        if(passInput) passInput.addEventListener('keypress', e => { if(e.key === 'Enter') validateConf(); });
-        
-        const gearBtn = container.getElementById('adminGearIcon');
-        if(gearBtn) gearBtn.addEventListener('click', () => showAdminPasswordModal());
+
+        // Modo Confidencial: solicitar contraseña
+        document.getElementById('confidentialModeCard').addEventListener('click', () => {
+            showPasswordModal('Confidencial2026', 'confidential', 'Acceso Confidencial', 'Ingresa la contraseña para acceder a vacantes confidenciales');
+        });
+
+        // Administrador (engrane)
+        document.getElementById('adminGearIcon').addEventListener('click', () => {
+            showPasswordModal('Administrador2026', 'admin', 'Acceso Administrador', 'Ingresa la contraseña de administrador para gestionar vacantes');
+        });
     }
 
-    function showAdminPasswordModal() {
+    // Modal genérico para solicitar contraseña
+    function showPasswordModal(correctPassword, accessLevelType, title, description) {
         const modalDiv = document.createElement('div');
         modalDiv.className = 'modal-overlay';
         modalDiv.innerHTML = `
             <div class="modal-card">
-                <i class="fas fa-user-cog" style="font-size:2rem; color:#2c7da0;"></i>
-                <h3 style="margin:12px 0">Administrador</h3>
-                <input type="password" id="adminPwdModal" placeholder="Contraseña" style="width:100%; padding:10px; border-radius:2rem; margin-bottom:15px;">
-                <button id="submitAdminModal" style="background:#2c7da0; width:100%; padding:10px; border-radius:2rem; color:white; font-weight:bold; border:none;">Verificar</button>
-                <button id="cancelAdminModal" style="margin-top:12px; background:none; border:none; color:#7c9bbb;">Cancelar</button>
+                <i class="fas ${accessLevelType === 'admin' ? 'fa-user-shield' : 'fa-lock'}" style="font-size:2.5rem; color:#2c7da0;"></i>
+                <h3 style="margin: 12px 0;">${title}</h3>
+                <p style="font-size:0.8rem; color:#5f8dae; margin-bottom:8px;">${description}</p>
+                <input type="password" id="passwordModalInput" placeholder="Contraseña" autocomplete="off">
+                <button id="submitPasswordBtn">Verificar acceso</button>
+                <button id="cancelPasswordBtn" style="background:transparent; color:#7c9bbb; margin-top:12px;">Cancelar</button>
             </div>
         `;
         document.body.appendChild(modalDiv);
-        const submitBtn = document.getElementById('submitAdminModal');
-        const cancelBtn = document.getElementById('cancelAdminModal');
-        const pwdField = document.getElementById('adminPwdModal');
+
+        const input = document.getElementById('passwordModalInput');
+        const submitBtn = document.getElementById('submitPasswordBtn');
+        const cancelBtn = document.getElementById('cancelPasswordBtn');
+
         const verify = () => {
-            if(pwdField.value === 'Administrador2026') {
-                appState.accessLevel = 'admin';
+            if (input.value === correctPassword) {
+                appState.accessLevel = accessLevelType;
                 appState.activeTab = 'open';
                 modalDiv.remove();
                 renderApp();
-            } else { alert('Contraseña incorrecta'); pwdField.value = ''; }
+            } else {
+                alert('❌ Contraseña incorrecta. Intenta nuevamente.');
+                input.value = '';
+                input.focus();
+            }
         };
-        submitBtn.onclick = verify;
-        cancelBtn.onclick = () => modalDiv.remove();
-        pwdField.addEventListener('keypress', e => { if(e.key === 'Enter') verify(); });
+
+        submitBtn.addEventListener('click', verify);
+        cancelBtn.addEventListener('click', () => modalDiv.remove());
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') verify();
+        });
+        input.focus();
     }
 
+    // Portal principal después del login
     function renderPortal(container) {
         const isGuest = appState.accessLevel === 'guest';
         const isConfidential = appState.accessLevel === 'confidential';
         const isAdmin = appState.accessLevel === 'admin';
-        const tabs = [
-            { id: 'open', label: 'Vacantes Abiertas', icon: 'fa-briefcase', enabled: true },
-            { id: 'confidential', label: 'Confidenciales', icon: 'fa-lock', enabled: (isConfidential || isAdmin) },
-            { id: 'admin', label: 'Administrador', icon: 'fa-toolbox', enabled: isAdmin }
-        ];
+
+        let availableTabs = [];
+        availableTabs.push({ id: 'open', label: 'Vacantes Abiertas', icon: 'fa-briefcase' });
+        if (isConfidential || isAdmin) {
+            availableTabs.push({ id: 'confidential', label: 'Confidenciales', icon: 'fa-lock' });
+        }
+        if (isAdmin) {
+            availableTabs.push({ id: 'admin', label: 'Administrador', icon: 'fa-toolbox' });
+        }
+        
+        const tabExists = availableTabs.some(tab => tab.id === appState.activeTab);
+        if (!tabExists && availableTabs.length > 0) {
+            appState.activeTab = availableTabs[0].id;
+        }
+
         let tabsHtml = `<div class="tabs-container">`;
-        tabs.forEach(tab => {
+        availableTabs.forEach(tab => {
             const isActive = (appState.activeTab === tab.id);
-            const disabledClass = !tab.enabled ? 'disabled-tab' : '';
-            tabsHtml += `<button class="tab-btn ${isActive ? 'active' : ''} ${disabledClass}" data-tab="${tab.id}" ${!tab.enabled ? 'disabled' : ''}><i class="fas ${tab.icon}"></i> ${tab.label}</button>`;
+            tabsHtml += `<button class="tab-btn ${isActive ? 'active' : ''}" data-tab="${tab.id}"><i class="fas ${tab.icon}"></i> ${tab.label}</button>`;
         });
         tabsHtml += `</div>`;
-        
+
         let headerHtml = `
             <div class="app-header">
                 <div class="logo-area"><h1><i class="fas fa-chalkboard-user"></i> CSW PosTÚlate</h1></div>
-                <div><span class="user-badge"><i class="fas ${isGuest ? 'fa-user-friends' : (isAdmin ? 'fa-user-shield' : 'fa-user-secret')}"></i> ${isGuest ? 'Invitado' : (isAdmin ? 'Administrador' : 'Confidencial')}</span>
-                <button class="btn-logout" id="logoutMainBtn"><i class="fas fa-sign-out-alt"></i> Salir</button></div>
+                <div>
+                    <span class="user-badge"><i class="fas ${isGuest ? 'fa-user-friends' : (isAdmin ? 'fa-user-shield' : 'fa-user-secret')}"></i> ${isGuest ? 'Invitado' : (isAdmin ? 'Administrador' : 'Confidencial')}</span>
+                    <button class="btn-logout" id="logoutMainBtn"><i class="fas fa-sign-out-alt"></i> Salir</button>
+                </div>
             </div>
         `;
-        
-        if(appState.activeTab === 'admin' && isAdmin) {
-            const adminPanel = renderAdminPanel();
-            container.innerHTML = headerHtml + tabsHtml + adminPanel + `<footer><i class="fas fa-envelope"></i> Postulaciones: prueba@comasw.com · <i class="fab fa-whatsapp"></i> WhatsApp</footer>`;
-            attachTabEvents(tabs);
+
+        if (appState.activeTab === 'admin' && isAdmin) {
+            const adminPanelHtml = renderAdminPanel();
+            container.innerHTML = headerHtml + tabsHtml + adminPanelHtml + `<footer><i class="fas fa-envelope"></i> Postulaciones: prueba@comasw.com · <i class="fab fa-whatsapp"></i> WhatsApp</footer>`;
+            attachTabEvents(availableTabs);
             attachLogout();
-            attachAdminCrudEvents();
+            attachAdminEventsWithPreview();
             return;
         }
-        
+
         let visibleVacancies = [];
-        if(appState.activeTab === 'open') visibleVacancies = vacancies.filter(v => !v.confidential);
-        else if(appState.activeTab === 'confidential' && (isConfidential || isAdmin)) visibleVacancies = vacancies.filter(v => v.confidential === true);
-        
+        if (appState.activeTab === 'open') {
+            visibleVacancies = vacancies.filter(v => !v.confidential);
+        } else if (appState.activeTab === 'confidential' && (isConfidential || isAdmin)) {
+            visibleVacancies = vacancies.filter(v => v.confidential === true);
+        }
+
         let gridHtml = `<div class="vacancies-grid">`;
-        if(visibleVacancies.length === 0) gridHtml += `<div class="empty-message"><i class="fas fa-info-circle"></i> No hay vacantes en esta sección.</div>`;
-        else {
+        if (visibleVacancies.length === 0) {
+            gridHtml += `<div class="empty-message"><i class="fas fa-info-circle"></i> No hay vacantes en esta sección.</div>`;
+        } else {
             visibleVacancies.forEach(v => {
                 const confBadge = v.confidential ? '<span class="job-badge" style="background:#FFEAD2;"><i class="fas fa-mask"></i> Confidencial</span>' : '<span class="job-badge"><i class="fas fa-globe-americas"></i> Abierta</span>';
                 gridHtml += `
@@ -565,7 +625,7 @@
                             <div class="job-title">${escapeHtml(v.title)}</div>
                             ${confBadge}
                             <div class="job-desc-preview"><i class="fas fa-building"></i> ${escapeHtml(v.department)} · ${escapeHtml(v.location)}</div>
-                            <div class="job-desc-preview"><strong>Descripción:</strong> ${escapeHtml(v.description.substring(0, 85))}${v.description.length>85?'...':''}</div>
+                            <div class="job-desc-preview"><strong>Descripción:</strong> ${escapeHtml(v.description.substring(0, 85))}${v.description.length > 85 ? '...' : ''}</div>
                             <div class="extra-details">
                                 <div class="requirements"><i class="fas fa-clipboard-list"></i> <strong>Requisitos:</strong> ${escapeHtml(v.requirements)}</div>
                                 <div><i class="fas fa-clock"></i> ${escapeHtml(v.contract)}</div>
@@ -581,51 +641,141 @@
         }
         gridHtml += `</div>`;
         container.innerHTML = headerHtml + tabsHtml + gridHtml + `<footer><i class="fas fa-shield-alt"></i> CSW PosTÚlate · Talento que conecta</footer>`;
-        attachTabEvents(tabs);
+        attachTabEvents(availableTabs);
         attachLogout();
         attachPostulationEvents();
     }
 
+    // Panel Admin con formulario organizado y vista previa
     function renderAdminPanel() {
         return `
             <div class="admin-panel-responsive">
-                <div style="display:flex; align-items:center; gap:8px; margin-bottom:1rem;"><i class="fas fa-plus-circle" style="font-size:1.5rem; color:#2c7da0;"></i><h3>Crear nueva vacante</h3></div>
-                <div class="form-row">
-                    <div class="form-group"><label>Título *</label><input type="text" id="adminTitle" placeholder="Ej. Ingeniero de Datos"></div>
-                    <div class="form-group"><label>Departamento</label><input type="text" id="adminDept" placeholder="Tecnología"></div>
-                    <div class="form-group"><label>Ubicación</label><input type="text" id="adminLoc" placeholder="Remoto"></div>
+                <div class="form-section">
+                    <div class="form-title"><i class="fas fa-plus-circle"></i> Crear nueva vacante</div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label><i class="fas fa-tag"></i> Título *</label>
+                            <input type="text" id="adminTitle" placeholder="Ej: Ingeniero de Software Senior">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-building"></i> Departamento</label>
+                            <input type="text" id="adminDept" placeholder="Tecnología, Marketing, RRHH...">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-map-marker-alt"></i> Ubicación</label>
+                            <input type="text" id="adminLoc" placeholder="Remoto, Híbrido, Ciudad...">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-clock"></i> Tipo de contrato</label>
+                            <input type="text" id="adminContract" placeholder="Full-time, Part-time, Freelance...">
+                        </div>
+                        <div class="form-group form-grid-full">
+                            <label><i class="fas fa-align-left"></i> Descripción del puesto</label>
+                            <textarea id="adminDesc" rows="4" placeholder="Describe las responsabilidades, funciones principales y el equipo..."></textarea>
+                        </div>
+                        <div class="form-group form-grid-full">
+                            <label><i class="fas fa-clipboard-list"></i> Requisitos y habilidades</label>
+                            <textarea id="adminReqs" rows="4" placeholder="Detalla los requisitos técnicos, experiencia mínima, habilidades blandas..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-eye-slash"></i> Visibilidad</label>
+                            <select id="adminTabSelect">
+                                <option value="false">📂 Vacantes Abiertas (Público)</option>
+                                <option value="true">🔒 Vacantes Confidenciales (Solo autorizados)</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="justify-content: flex-end; display: flex;">
+                            <button id="createVacancyAdminBtn" class="btn-primary"><i class="fas fa-save"></i> Guardar vacante</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-row">
-                    <div class="form-group"><label>Contrato</label><input type="text" id="adminContract" placeholder="Full-time"></div>
-                    <div class="form-group"><label>Pestaña</label><select id="adminTabSelect"><option value="false">Abiertas</option><option value="true">Confidenciales</option></select></div>
-                    <div class="form-group"><button id="createVacancyAdminBtn" class="btn-primary">+ Crear</button></div>
+
+                <div class="form-section">
+                    <div class="form-title"><i class="fas fa-eye"></i> Vista previa en tiempo real</div>
+                    <div class="preview-card" id="livePreview">
+                        <div class="preview-title" id="previewTitle">[Título de la vacante]</div>
+                        <div style="font-size:0.75rem; color:#2c7da0; margin: 6px 0;" id="previewMeta">[Departamento] · [Ubicación] · [Contrato]</div>
+                        <div style="margin-top: 10px;"><strong>Descripción:</strong></div>
+                        <div id="previewDesc" style="font-size:0.8rem; color:#4f6f8f;">[La descripción aparecerá aquí...]</div>
+                        <div style="margin-top: 8px;"><strong>Requisitos:</strong></div>
+                        <div id="previewReqs" style="font-size:0.8rem; color:#4f6f8f;">[Los requisitos aparecerán aquí...]</div>
+                        <div style="margin-top: 8px;"><span id="previewBadge" class="job-badge">Abierta</span></div>
+                    </div>
                 </div>
-                <div class="form-row">
-                    <div class="form-group"><label>Descripción</label><input type="text" id="adminDesc" placeholder="Descripción general"></div>
-                    <div class="form-group"><label>Requisitos</label><input type="text" id="adminReqs" placeholder="Requisitos clave"></div>
+
+                <div class="form-section">
+                    <div class="form-title"><i class="fas fa-list-ul"></i> Gestionar vacantes existentes</div>
+                    <div id="adminVacanciesList"></div>
                 </div>
-                <hr style="margin: 1rem 0;">
-                <h4><i class="fas fa-list"></i> Gestionar vacantes</h4>
-                <div id="adminVacanciesList"></div>
             </div>
         `;
     }
 
-    function attachAdminCrudEvents() {
+    function attachAdminEventsWithPreview() {
+        const titleInput = document.getElementById('adminTitle');
+        const deptInput = document.getElementById('adminDept');
+        const locInput = document.getElementById('adminLoc');
+        const contractInput = document.getElementById('adminContract');
+        const descTextarea = document.getElementById('adminDesc');
+        const reqsTextarea = document.getElementById('adminReqs');
+        const tabSelect = document.getElementById('adminTabSelect');
+        
+        const previewTitle = document.getElementById('previewTitle');
+        const previewMeta = document.getElementById('previewMeta');
+        const previewDesc = document.getElementById('previewDesc');
+        const previewReqs = document.getElementById('previewReqs');
+        const previewBadge = document.getElementById('previewBadge');
+        
+        function updatePreview() {
+            previewTitle.textContent = titleInput.value.trim() || '[Título de la vacante]';
+            const dept = deptInput.value.trim() || '[Departamento]';
+            const loc = locInput.value.trim() || '[Ubicación]';
+            const contract = contractInput.value.trim() || '[Contrato]';
+            previewMeta.textContent = `${dept} · ${loc} · ${contract}`;
+            previewDesc.textContent = descTextarea.value.trim() || '[La descripción aparecerá aquí...]';
+            previewReqs.textContent = reqsTextarea.value.trim() || '[Los requisitos aparecerán aquí...]';
+            const isConfidential = tabSelect.value === 'true';
+            previewBadge.textContent = isConfidential ? '🔒 Confidencial' : '📂 Abierta';
+            previewBadge.style.background = isConfidential ? '#FFEAD2' : '#eef3fc';
+        }
+        
+        const inputs = [titleInput, deptInput, locInput, contractInput, descTextarea, reqsTextarea, tabSelect];
+        inputs.forEach(input => {
+            if (input) input.addEventListener('input', updatePreview);
+            if (input && input.tagName === 'SELECT') input.addEventListener('change', updatePreview);
+        });
+        updatePreview();
+        
         const createBtn = document.getElementById('createVacancyAdminBtn');
-        if(createBtn) {
+        if (createBtn) {
             createBtn.onclick = () => {
-                const title = document.getElementById('adminTitle').value.trim();
-                if(!title) { alert("Título requerido"); return; }
-                const dept = document.getElementById('adminDept').value.trim() || "General";
-                const loc = document.getElementById('adminLoc').value.trim() || "Remoto";
-                const contract = document.getElementById('adminContract').value.trim() || "Full-time";
-                const desc = document.getElementById('adminDesc').value.trim() || "Descripción pendiente";
-                const reqs = document.getElementById('adminReqs').value.trim() || "Requisitos por definir";
-                const isConf = document.getElementById('adminTabSelect').value === 'true';
-                vacancies.push({ id: generateId(), title, department: dept, location: loc, contract, description: desc, requirements: reqs, confidential: isConf });
+                const title = titleInput.value.trim();
+                if (!title) { alert("El título es obligatorio"); return; }
+                const dept = deptInput.value.trim() || "General";
+                const loc = locInput.value.trim() || "Remoto";
+                const contract = contractInput.value.trim() || "Full-time";
+                const desc = descTextarea.value.trim() || "Descripción pendiente";
+                const reqs = reqsTextarea.value.trim() || "Requisitos por definir";
+                const isConf = tabSelect.value === 'true';
+                vacancies.push({
+                    id: generateId(),
+                    title: title,
+                    department: dept,
+                    location: loc,
+                    contract: contract,
+                    description: desc,
+                    requirements: reqs,
+                    confidential: isConf
+                });
                 saveToLocal();
-                ['adminTitle','adminDept','adminLoc','adminContract','adminDesc','adminReqs'].forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
+                titleInput.value = '';
+                deptInput.value = '';
+                locInput.value = '';
+                contractInput.value = '';
+                descTextarea.value = '';
+                reqsTextarea.value = '';
+                tabSelect.value = 'false';
+                updatePreview();
                 renderApp();
             };
         }
@@ -634,8 +784,11 @@
 
     function renderAdminVacanciesList() {
         const containerList = document.getElementById('adminVacanciesList');
-        if(!containerList) return;
-        if(vacancies.length === 0) { containerList.innerHTML = '<p>No hay vacantes</p>'; return; }
+        if (!containerList) return;
+        if (vacancies.length === 0) {
+            containerList.innerHTML = '<p>No hay vacantes registradas</p>';
+            return;
+        }
         let html = '';
         vacancies.forEach(v => {
             html += `
@@ -649,20 +802,25 @@
             `;
         });
         containerList.innerHTML = html;
+
         document.querySelectorAll('.edit-admin-item').forEach(btn => {
-            btn.addEventListener('click', (e) => {
+            btn.addEventListener('click', () => {
                 const id = btn.getAttribute('data-id');
                 const vac = vacancies.find(v => v.id === id);
-                if(vac) {
+                if (vac) {
                     let newTitle = prompt("Editar título", vac.title);
-                    if(newTitle) vac.title = newTitle;
+                    if (newTitle !== null && newTitle.trim()) vac.title = newTitle;
                     let newDesc = prompt("Descripción", vac.description);
-                    if(newDesc !== null) vac.description = newDesc;
+                    if (newDesc !== null) vac.description = newDesc;
                     let newReqs = prompt("Requisitos", vac.requirements);
-                    if(newReqs !== null) vac.requirements = newReqs;
+                    if (newReqs !== null) vac.requirements = newReqs;
                     let newDept = prompt("Departamento", vac.department);
-                    if(newDept !== null) vac.department = newDept;
-                    let newConf = confirm("¿Confidencial? (Aceptar=Si, Cancelar=No)");
+                    if (newDept !== null) vac.department = newDept;
+                    let newLoc = prompt("Ubicación", vac.location);
+                    if (newLoc !== null) vac.location = newLoc;
+                    let newContract = prompt("Contrato", vac.contract);
+                    if (newContract !== null) vac.contract = newContract;
+                    let newConf = confirm("¿Marcar como confidencial? (Aceptar = Sí, Cancelar = No)");
                     vac.confidential = newConf;
                     saveToLocal();
                     renderApp();
@@ -670,9 +828,9 @@
             });
         });
         document.querySelectorAll('.delete-admin-item').forEach(btn => {
-            btn.addEventListener('click', (e) => {
+            btn.addEventListener('click', () => {
                 const id = btn.getAttribute('data-id');
-                if(confirm("Eliminar vacante?")) {
+                if (confirm("¿Eliminar esta vacante permanentemente?")) {
                     vacancies = vacancies.filter(v => v.id !== id);
                     saveToLocal();
                     renderApp();
@@ -681,16 +839,29 @@
         });
     }
 
-    function attachTabEvents(tabs) {
+    function attachTabEvents(availableTabs) {
         document.querySelectorAll('.tab-btn').forEach(btn => {
             const tabId = btn.getAttribute('data-tab');
-            if(tabId && !btn.disabled) btn.addEventListener('click', () => { appState.activeTab = tabId; renderApp(); });
+            if (tabId) {
+                btn.addEventListener('click', () => {
+                    appState.activeTab = tabId;
+                    renderApp();
+                });
+            }
         });
     }
+
     function attachLogout() {
         const logoutBtn = document.getElementById('logoutMainBtn');
-        if(logoutBtn) logoutBtn.onclick = () => { appState.accessLevel = null; appState.activeTab = "open"; renderApp(); };
+        if (logoutBtn) {
+            logoutBtn.onclick = () => {
+                appState.accessLevel = null;
+                appState.activeTab = "open";
+                renderApp();
+            };
+        }
     }
+
     function attachPostulationEvents() {
         document.querySelectorAll('.email-apply').forEach(btn => {
             btn.onclick = () => {
@@ -698,7 +869,7 @@
                 const desc = btn.getAttribute('data-desc');
                 const reqs = btn.getAttribute('data-reqs');
                 const dept = btn.getAttribute('data-dept');
-                const body = `Deseo postularme al puesto de: ${title}\n\nDetalles:\nDepartamento: ${dept}\nDescripción: ${desc}\nRequisitos: ${reqs}`;
+                const body = `Deseo postularme al puesto de: ${title}\n\nDetalles:\nDepartamento: ${dept}\nDescripción: ${desc}\nRequisitos: ${reqs}\n\nQuedo atento a su contacto.`;
                 window.open(`mailto:prueba@comasw.com?subject=Postulación a ${encodeURIComponent(title)}&body=${encodeURIComponent(body)}`, '_blank');
             };
         });
@@ -707,12 +878,17 @@
                 const title = btn.getAttribute('data-title');
                 const desc = btn.getAttribute('data-desc');
                 const reqs = btn.getAttribute('data-reqs');
-                const text = `¡Hola! Me interesa postularme a "${title}".%0A%0ADescripción: ${desc}%0ARequisitos: ${reqs}`;
+                const text = `¡Hola! Me interesa postularme a la vacante "${title}".%0A%0ADescripción: ${desc}%0ARequisitos: ${reqs}%0A%0AGracias.`;
                 window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
             };
         });
     }
-    function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m]));
+    }
+
     renderApp();
 </script>
 </body>
